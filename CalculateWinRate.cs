@@ -15,7 +15,9 @@ namespace LeagueWinRateVsSummoner
         public static async Task<WinRateObject> CalculateWinRateAsync(string player1PUUID, string player2PUUID, HttpClient httpClient)
         {
 
-            WinRateObject winRateObject = null;
+            WinRateObject winRateObject = new WinRateObject();
+            winRateObject.numOfTimesOnEnemyTeam = 0;
+            winRateObject.numOfTimesOnSameTeam = 0;
 
             try
             {
@@ -26,7 +28,7 @@ namespace LeagueWinRateVsSummoner
 
                 List<string> listOfGames = JsonSerializer.Deserialize<List<string>>(responseBody);
 
-                CalculateAsync(listOfGames, player1PUUID, player2PUUID, httpClient);
+                CalculateAsync(listOfGames, player1PUUID, player2PUUID, httpClient,winRateObject);
                     
                 return winRateObject;
 
@@ -42,11 +44,11 @@ namespace LeagueWinRateVsSummoner
             }
         }
 
-        private static async Task<string> CalculateAsync(List<string> listOfGames,string player1PUUID,string player2PUUID, HttpClient httpClient)
+        private static async Task<string> CalculateAsync(List<string> listOfGames,string player1PUUID,string player2PUUID, HttpClient httpClient,WinRateObject winRateObject)
         {
             foreach (var gameID in listOfGames)
             {
-                await CheckIfPlayer2InGame(gameID, player1PUUID, player2PUUID, httpClient);
+                await CheckIfPlayer2InGame(gameID, player1PUUID, player2PUUID, httpClient, winRateObject);
                 break;
             }
 
@@ -54,10 +56,9 @@ namespace LeagueWinRateVsSummoner
             return "";
         }
 
-        public static async Task<WinRateObject> CheckIfPlayer2InGame(string gameID, string player1PUUID, string player2PUUID, HttpClient httpClient)
+        public static async Task<WinRateObject> CheckIfPlayer2InGame(string gameID, string player1PUUID, string player2PUUID, HttpClient httpClient,WinRateObject winRateObject)
         {
             string testP2ID = "5SPhaRkkj1qYMJRmuv8DtMloUPjJPX2ZM1mFlZXbN3esyxOLJiqpOkmdqLOU2j1JUXtYXOt4vX5_cg";
-                WinRateObject winRateObject = null;
             try
             {
 
@@ -66,8 +67,25 @@ namespace LeagueWinRateVsSummoner
 
                 MatchDto test = JsonSerializer.Deserialize<MatchDto>(responseBody);
 
-                if (test.metadata.participants.IndexOf(testP2ID) != -1)
+                int indexOfPlayer1 = test.metadata.participants.IndexOf(player1PUUID);
+                int indexOfPlayer2 = test.metadata.participants.IndexOf(testP2ID);
+
+                if (indexOfPlayer2 != -1)
                 {
+                    //check if on same team
+                    if (test.info.participants[indexOfPlayer1].teamId == test.info.participants[indexOfPlayer2].teamId)
+                    {
+                        winRateObject.numOfTimesOnSameTeam++;
+                        
+                        //same team
+                        
+                    }
+                    else
+                    {
+
+                    }
+                    Debug.WriteLine(test.info.participants[indexOfPlayer1].teamId);
+                    Debug.WriteLine(test.info.participants[indexOfPlayer2].teamId);
                     Debug.WriteLine("FOUND PLAYER2");
                 }
                 else
