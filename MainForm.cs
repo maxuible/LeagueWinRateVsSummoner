@@ -27,15 +27,16 @@ namespace LeagueWinRateVsSummoner
             InitializeComponent();
 
             txtPlayer1PUUID.ReadOnly = true;
+            txtPlayer2PUUID.ReadOnly = true;
 
             txtPlayer1Name.Text = "duoking1";
             txtPlayer1Tag.Text = "234";
             txtPlayer1PUUID.Text = "Z_cUCRLzm17VIfe0bfdxIuZkIuYsQzNJ52EotIKVh5YVpxKQAveo2WgV3CsHjNMuemEYSzF_9nt3WQ";
 
 
-            txtPlayer2Name.Text = "Focus";
-            txtPlayer2Tag.Text = "heyge";
-            txtPlayer2PUUID.Text = "eFRW0hHs1Q7-lI4sxxjijohrNwJfImp99eqDbQvBZIvbMoLXdpMCpp8BqT-19xz_g6NDZWk5U_A58w";
+            txtPlayer2Name.Text = "KatEvolved";
+            txtPlayer2Tag.Text = "666";
+            txtPlayer2PUUID.Text = "VHpcw-Az_E27_IiNsKZZxsf3KaDh-oy0Uhntnq509TKVcrxxP2ITMW2upN9B8cOJ04jZ0nXkiWn4Og";
         }
 
         private async void btnPlayer1GetPUUID_Click(object sender, EventArgs e)
@@ -81,10 +82,31 @@ namespace LeagueWinRateVsSummoner
 
         private async void btnCalculateWinrate_Click(object sender, EventArgs e)
         {
-            
-            CalculateWinRate.CalculateWinRateAsync(txtPlayer1PUUID.Text,txtPlayer2PUUID.Text, httpClient);
+
+            WinRateObject winRateObject = new WinRateObject();
+            await CalculateWinRate.CalculateWinRateAsync(txtPlayer1PUUID.Text, txtPlayer2PUUID.Text, httpClient, winRateObject);
+
+
+            txtNumOfTimesOnSameTeam.Text = winRateObject.numOfTimes_WithPlayer2_OnSameTeam.ToString();
+            txtLosesOnSameTeam.Text = winRateObject.numOfTimes_LostWithPlayer2_OnSameTeam.ToString();
+            txtWinsOnSameTeam.Text = winRateObject.numOfTimes_WonWithPlayer2_OnSameTeam.ToString();
+
+
+            txtNumOfTimesOnEnemyTeam.Text = winRateObject.numOfTimes_WithPlayer2_OnEnemyTeam.ToString();
+            txtLosesOnEnemyTeam.Text = winRateObject.numOfTimes_LostWithPlayer2_OnEnemyTeam.ToString();
+            txtWinsOnEnemyTeam.Text = winRateObject.numOfTimes_WonWithPlayer2_OnEnemyTeam.ToString();
+
+
 
 
         }
+
+        public void updateProgress(int num)
+        { 
+
+            txtStatus.Text = "100 out of "+num+" Completed";
+
+        }
+
     }
 }

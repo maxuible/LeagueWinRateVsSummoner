@@ -43,6 +43,20 @@
             label5 = new Label();
             label6 = new Label();
             btnCalculateWinrate = new Button();
+            txtNumOfTimesOnSameTeam = new TextBox();
+            txtNumOfTimesOnEnemyTeam = new TextBox();
+            label7 = new Label();
+            label8 = new Label();
+            label9 = new Label();
+            txtWinsOnSameTeam = new TextBox();
+            label10 = new Label();
+            txtLosesOnSameTeam = new TextBox();
+            label11 = new Label();
+            txtWinsOnEnemyTeam = new TextBox();
+            txtLosesOnEnemyTeam = new TextBox();
+            label12 = new Label();
+            txtStatus = new TextBox();
+            label13 = new Label();
             SuspendLayout();
             // 
             // txtPlayer1Name
@@ -171,11 +185,137 @@
             btnCalculateWinrate.UseVisualStyleBackColor = true;
             btnCalculateWinrate.Click += btnCalculateWinrate_Click;
             // 
+            // txtNumOfTimesOnSameTeam
+            // 
+            txtNumOfTimesOnSameTeam.Location = new Point(306, 267);
+            txtNumOfTimesOnSameTeam.Name = "txtNumOfTimesOnSameTeam";
+            txtNumOfTimesOnSameTeam.Size = new Size(78, 23);
+            txtNumOfTimesOnSameTeam.TabIndex = 15;
+            // 
+            // txtNumOfTimesOnEnemyTeam
+            // 
+            txtNumOfTimesOnEnemyTeam.Location = new Point(620, 267);
+            txtNumOfTimesOnEnemyTeam.Name = "txtNumOfTimesOnEnemyTeam";
+            txtNumOfTimesOnEnemyTeam.Size = new Size(78, 23);
+            txtNumOfTimesOnEnemyTeam.TabIndex = 16;
+            // 
+            // label7
+            // 
+            label7.AutoSize = true;
+            label7.Location = new Point(140, 270);
+            label7.Name = "label7";
+            label7.Size = new Size(160, 15);
+            label7.TabIndex = 17;
+            label7.Text = "Num Of times on same team";
+            // 
+            // label8
+            // 
+            label8.AutoSize = true;
+            label8.Location = new Point(446, 270);
+            label8.Name = "label8";
+            label8.Size = new Size(168, 15);
+            label8.TabIndex = 18;
+            label8.Text = "Num Of times on Enemy team";
+            // 
+            // label9
+            // 
+            label9.AutoSize = true;
+            label9.Location = new Point(117, 301);
+            label9.Name = "label9";
+            label9.Size = new Size(183, 15);
+            label9.TabIndex = 19;
+            label9.Text = "Wins with Player 2 on Same Team";
+            // 
+            // txtWinsOnSameTeam
+            // 
+            txtWinsOnSameTeam.Location = new Point(306, 296);
+            txtWinsOnSameTeam.Name = "txtWinsOnSameTeam";
+            txtWinsOnSameTeam.Size = new Size(78, 23);
+            txtWinsOnSameTeam.TabIndex = 20;
+            // 
+            // label10
+            // 
+            label10.AutoSize = true;
+            label10.Location = new Point(114, 328);
+            label10.Name = "label10";
+            label10.Size = new Size(186, 15);
+            label10.TabIndex = 21;
+            label10.Text = "Loses with Player 2 on Same Team";
+            // 
+            // txtLosesOnSameTeam
+            // 
+            txtLosesOnSameTeam.Location = new Point(306, 325);
+            txtLosesOnSameTeam.Name = "txtLosesOnSameTeam";
+            txtLosesOnSameTeam.Size = new Size(78, 23);
+            txtLosesOnSameTeam.TabIndex = 22;
+            // 
+            // label11
+            // 
+            label11.AutoSize = true;
+            label11.Location = new Point(424, 301);
+            label11.Name = "label11";
+            label11.Size = new Size(190, 15);
+            label11.TabIndex = 23;
+            label11.Text = "Wins with Player 2 on Enemy Team";
+            // 
+            // txtWinsOnEnemyTeam
+            // 
+            txtWinsOnEnemyTeam.Location = new Point(620, 296);
+            txtWinsOnEnemyTeam.Name = "txtWinsOnEnemyTeam";
+            txtWinsOnEnemyTeam.Size = new Size(78, 23);
+            txtWinsOnEnemyTeam.TabIndex = 24;
+            // 
+            // txtLosesOnEnemyTeam
+            // 
+            txtLosesOnEnemyTeam.Location = new Point(620, 325);
+            txtLosesOnEnemyTeam.Name = "txtLosesOnEnemyTeam";
+            txtLosesOnEnemyTeam.Size = new Size(78, 23);
+            txtLosesOnEnemyTeam.TabIndex = 25;
+            // 
+            // label12
+            // 
+            label12.AutoSize = true;
+            label12.Location = new Point(421, 328);
+            label12.Name = "label12";
+            label12.Size = new Size(193, 15);
+            label12.TabIndex = 26;
+            label12.Text = "Loses with Player 2 on Enemy Team";
+            // 
+            // txtStatus
+            // 
+            txtStatus.Location = new Point(563, 415);
+            txtStatus.Name = "txtStatus";
+            txtStatus.Size = new Size(225, 23);
+            txtStatus.TabIndex = 27;
+            // 
+            // label13
+            // 
+            label13.AutoSize = true;
+            label13.Location = new Point(563, 397);
+            label13.Name = "label13";
+            label13.Size = new Size(39, 15);
+            label13.TabIndex = 28;
+            label13.Text = "Status";
+            // 
             // MainForm
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(800, 450);
+            Controls.Add(label13);
+            Controls.Add(txtStatus);
+            Controls.Add(label12);
+            Controls.Add(txtLosesOnEnemyTeam);
+            Controls.Add(txtWinsOnEnemyTeam);
+            Controls.Add(label11);
+            Controls.Add(txtLosesOnSameTeam);
+            Controls.Add(label10);
+            Controls.Add(txtWinsOnSameTeam);
+            Controls.Add(label9);
+            Controls.Add(label8);
+            Controls.Add(label7);
+            Controls.Add(txtNumOfTimesOnEnemyTeam);
+            Controls.Add(txtNumOfTimesOnSameTeam);
             Controls.Add(btnCalculateWinrate);
             Controls.Add(label6);
             Controls.Add(label5);
@@ -214,5 +354,19 @@
         private Label label5;
         private Label label6;
         private Button btnCalculateWinrate;
+        private TextBox txtNumOfTimesOnSameTeam;
+        private TextBox txtNumOfTimesOnEnemyTeam;
+        private Label label7;
+        private Label label8;
+        private Label label9;
+        private TextBox txtWinsOnSameTeam;
+        private Label label10;
+        private TextBox txtLosesOnSameTeam;
+        private Label label11;
+        private TextBox txtWinsOnEnemyTeam;
+        private TextBox txtLosesOnEnemyTeam;
+        private Label label12;
+        private TextBox txtStatus;
+        private Label label13;
     }
 }
