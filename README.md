@@ -8,5 +8,5 @@ Basic function:
 3. Get the amount of wins on each side
 
 # Why:
-Want experience with API queries
+Wanted experience with API queries
 
