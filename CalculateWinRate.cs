@@ -12,11 +12,8 @@ namespace LeagueWinRateVsSummoner
 {
     internal class CalculateWinRate
     {
-        public static async Task<WinRateObject> CalculateWinRateAsync(string player1PUUID, string player2PUUID, HttpClient httpClient,WinRateObject winRateObject)
+        public static async Task<WinRateObject> CalculateWinRateAsync(string player1PUUID, string player2PUUID, HttpClient httpClient,WinRateObject winRateObject, string apiKey,string numOfGames)
         {
-
-            //WinRateObject winRateObject = new WinRateObject();
-
             winRateObject.numOfTimes_WithPlayer2_OnEnemyTeam = 0;
             winRateObject.numOfTimes_LostWithPlayer2_OnEnemyTeam = 0;
             winRateObject.numOfTimes_WonWithPlayer2_OnEnemyTeam = 0;
@@ -28,57 +25,46 @@ namespace LeagueWinRateVsSummoner
             List<string> list = new List<string> { };
             winRateObject.error = list;
 
-
             try
             {
-                string numOfRecentGames = "100";
-
-                //https://americas.api.riotgames.com/lol/match/v5/matches/by-puuid/Z_cUCRLzm17VIfe0bfdxIuZkIuYsQzNJ52EotIKVh5YVpxKQAveo2WgV3CsHjNMuemEYSzF_9nt3WQ/ids?type=ranked&start=0&count=20&api_key=RGAPI-dc34fd14-5d20-48a7-8665-e8527bf83f1c
-                string uri = "https://americas.api.riotgames.com/lol/match/v5/matches/by-puuid/"+player1PUUID+ "/ids?type=ranked&start=0&count="+numOfRecentGames+"&api_key=RGAPI-dc34fd14-5d20-48a7-8665-e8527bf83f1c";
+                string uri = "https://americas.api.riotgames.com/lol/match/v5/matches/by-puuid/"+player1PUUID+ "/ids?type=ranked&start=0&count="+numOfGames+"&api_key="+apiKey;
                 string responseBody = await httpClient.GetStringAsync(uri);
-
                 Debug.WriteLine(responseBody);
 
                 List<string> listOfGames = JsonSerializer.Deserialize<List<string>>(responseBody);
 
-                await CalculateAsync(listOfGames, player1PUUID, player2PUUID, httpClient,winRateObject);
+                await CalculateAsync(listOfGames, player1PUUID, player2PUUID, httpClient,winRateObject,apiKey,numOfGames);
                     
                 return winRateObject;
-
             }
             catch (HttpRequestException e)
             {
                 Debug.WriteLine("\nException Caught!");
                 Debug.WriteLine("Message :{0} ", e.Message);
-
                 winRateObject.error.Add(e.Message);
-
                 return winRateObject;
             }
         }
 
-        private static async Task<string> CalculateAsync(List<string> listOfGames,string player1PUUID,string player2PUUID, HttpClient httpClient,WinRateObject winRateObject)
+        private static async Task<string> CalculateAsync(List<string> listOfGames,string player1PUUID,string player2PUUID, HttpClient httpClient,WinRateObject winRateObject, string apiKey,string numOfGames)
         {
-
             var formOpen = Application.OpenForms.Cast<MainForm>().FirstOrDefault();
             int i = 0;
             foreach (var gameID in listOfGames)
             {
                 i++;
-                formOpen.updateProgress(i);
+                formOpen.updateProgress(i,numOfGames);
                 System.Threading.Thread.Sleep(1000);
-                await CheckIfPlayer2InGame(gameID, player1PUUID, player2PUUID, httpClient, winRateObject);
+                await CheckIfPlayer2InGame(gameID, player1PUUID, player2PUUID, httpClient, winRateObject,apiKey);
             }
-
             return "";
         }
 
-        public static async Task<WinRateObject> CheckIfPlayer2InGame(string gameID, string player1PUUID, string player2PUUID, HttpClient httpClient,WinRateObject winRateObject)
+        public static async Task<WinRateObject> CheckIfPlayer2InGame(string gameID, string player1PUUID, string player2PUUID, HttpClient httpClient,WinRateObject winRateObject,string apiKey)
         {
             try
             {
-
-                string uri = "https://americas.api.riotgames.com/lol/match/v5/matches/"+ gameID + "?api_key=RGAPI-dc34fd14-5d20-48a7-8665-e8527bf83f1c";
+                string uri = "https://americas.api.riotgames.com/lol/match/v5/matches/"+ gameID + "?api_key="+apiKey;
                 string responseBody = await httpClient.GetStringAsync(uri);
 
                 MatchDto test = JsonSerializer.Deserialize<MatchDto>(responseBody);
@@ -106,21 +92,14 @@ namespace LeagueWinRateVsSummoner
                         {
                             winRateObject.numOfTimes_LostWithPlayer2_OnSameTeam++;
                         }
-
-                        //same team
-                        
                     }
                     else
                     {
                         winRateObject.numOfTimes_WithPlayer2_OnEnemyTeam++;
                         if (test.info.participants[indexOfPlayer1].win == true)
-                        {
-                            winRateObject.numOfTimes_WonWithPlayer2_OnEnemyTeam++;
-                        }
+                        {winRateObject.numOfTimes_WonWithPlayer2_OnEnemyTeam++;}
                         else
-                        {
-                            winRateObject.numOfTimes_LostWithPlayer2_OnEnemyTeam++;
-                        }
+                        {winRateObject.numOfTimes_LostWithPlayer2_OnEnemyTeam++;}
                     }
                     Debug.WriteLine(test.info.participants[indexOfPlayer1].teamId);
                     Debug.WriteLine(test.info.participants[indexOfPlayer2].teamId);
@@ -129,9 +108,7 @@ namespace LeagueWinRateVsSummoner
                 {
                     Debug.WriteLine("NOT FOUND PLAYER2");
                 }
-
                 Debug.WriteLine(responseBody);
-
                 return winRateObject;
             }
             catch (HttpRequestException e)
@@ -144,7 +121,5 @@ namespace LeagueWinRateVsSummoner
                 return winRateObject;
             }
         }
-
-
     }
 }

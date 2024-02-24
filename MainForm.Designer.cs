@@ -57,6 +57,11 @@
             label12 = new Label();
             txtStatus = new TextBox();
             label13 = new Label();
+            btnLockAPIKey = new Button();
+            txtAPIKey = new TextBox();
+            btnClearAPIKey = new Button();
+            txtNumOfGames = new TextBox();
+            label14 = new Label();
             SuspendLayout();
             // 
             // txtPlayer1Name
@@ -291,17 +296,66 @@
             // label13
             // 
             label13.AutoSize = true;
-            label13.Location = new Point(563, 397);
+            label13.Location = new Point(518, 418);
             label13.Name = "label13";
             label13.Size = new Size(39, 15);
             label13.TabIndex = 28;
             label13.Text = "Status";
+            // 
+            // btnLockAPIKey
+            // 
+            btnLockAPIKey.Location = new Point(12, 389);
+            btnLockAPIKey.Name = "btnLockAPIKey";
+            btnLockAPIKey.Size = new Size(120, 23);
+            btnLockAPIKey.TabIndex = 29;
+            btnLockAPIKey.Text = "Set API Key";
+            btnLockAPIKey.UseVisualStyleBackColor = true;
+            btnLockAPIKey.Click += btnLockAPIKey_Click;
+            // 
+            // txtAPIKey
+            // 
+            txtAPIKey.Location = new Point(140, 389);
+            txtAPIKey.Name = "txtAPIKey";
+            txtAPIKey.Size = new Size(417, 23);
+            txtAPIKey.TabIndex = 30;
+            // 
+            // btnClearAPIKey
+            // 
+            btnClearAPIKey.Location = new Point(14, 414);
+            btnClearAPIKey.Name = "btnClearAPIKey";
+            btnClearAPIKey.Size = new Size(120, 23);
+            btnClearAPIKey.TabIndex = 31;
+            btnClearAPIKey.Text = "Clear API Key";
+            btnClearAPIKey.UseVisualStyleBackColor = true;
+            btnClearAPIKey.Click += btnClearAPIKey_Click;
+            // 
+            // txtNumOfGames
+            // 
+            txtNumOfGames.Location = new Point(14, 320);
+            txtNumOfGames.Name = "txtNumOfGames";
+            txtNumOfGames.Size = new Size(78, 23);
+            txtNumOfGames.TabIndex = 32;
+            txtNumOfGames.Validated += txtNumOfGames_Validated;
+            // 
+            // label14
+            // 
+            label14.AutoSize = true;
+            label14.Location = new Point(14, 296);
+            label14.Name = "label14";
+            label14.Size = new Size(67, 15);
+            label14.TabIndex = 33;
+            label14.Text = "# of Games";
             // 
             // MainForm
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(800, 450);
+            Controls.Add(label14);
+            Controls.Add(txtNumOfGames);
+            Controls.Add(btnClearAPIKey);
+            Controls.Add(txtAPIKey);
+            Controls.Add(btnLockAPIKey);
             Controls.Add(label13);
             Controls.Add(txtStatus);
             Controls.Add(label12);
@@ -368,5 +422,10 @@
         private Label label12;
         private TextBox txtStatus;
         private Label label13;
+        private Button btnLockAPIKey;
+        private TextBox txtAPIKey;
+        private Button btnClearAPIKey;
+        private TextBox txtNumOfGames;
+        private Label label14;
     }
 }
