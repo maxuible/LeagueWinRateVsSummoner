@@ -1,7 +1,7 @@
 # LeagueWinRateVsSummoner
 Basic function:
 1. Supply two players
-2. Check last 100 games of 1st player
+2. Check last x amount of games from 1st player
 3. Get the amount of wins on each side
 
 # Why?
