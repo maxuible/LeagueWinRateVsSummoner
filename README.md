@@ -7,6 +7,6 @@ Basic function:
 2. Check last x amount of games from 1st player
 3. Get the amount of wins on each side
 
-# Why?
-Want experience with API creation
+# Why:
+Want experience with API queries
 
